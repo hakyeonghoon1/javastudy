@@ -2,10 +2,15 @@ package chapter03;
 
 public class Goods {
 	   
+		public static int countOfGoods =0; //final 끝, 최종
 	   private String name;
 	   private int price;
 	   private int countStock;
 	   private int countSold;
+	   
+	   public Goods() {
+		   countOfGoods = countOfGoods +1;
+	   }
 	   
 	   public String getName() {
 	      return name;
@@ -14,9 +19,13 @@ public class Goods {
 	      this.name = name;
 	   }
 	   public int getPrice() {
+		   
 	      return price;
 	   }
 	   public void setPrice(int price) {
+		   if(price<0) {
+			   return;
+		   }
 	      this.price = price;
 	   }
 	   public int getCountStock() {
@@ -34,5 +43,9 @@ public class Goods {
 	public void showInfo() {
 		System.out.println("name:"+ name +", price:" +price+", countStock:"+countStock+", countSold:"+countSold);
 		
+	}
+	
+	public int calcDiscountPrice(int percentage) {
+		return price*percentage/100;
 	}
 }
