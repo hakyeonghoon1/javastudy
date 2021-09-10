@@ -12,14 +12,17 @@ public class GoodsApp {
 
 		// 상품 입력
 		
+		for(int i=0;i<COUNT_GOODS;i++) {
+			goods[i] =new Goods();
+		}
 		
 		
 		for(int i=0;i<COUNT_GOODS;i++) {
 			
 			String getItem = scanner.nextLine();
 			String[] good = getItem.split(" ");
-			System.out.println(getItem);
-			System.out.println(good.length);
+			//System.out.println(getItem);
+			//System.out.println(good.length);
 			
 //			System.out.println(good[0]);
 //			System.out.println(good[1]);
