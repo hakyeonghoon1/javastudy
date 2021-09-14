@@ -33,6 +33,7 @@ public class FileReaderTest {
 				System.out.print((char)data);
 				count++;
 			}
+			
 			System.out.println("");
 			System.out.println("count : "+count);
 			

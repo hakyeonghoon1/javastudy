@@ -12,7 +12,7 @@ public class BufferedReaderTest {
 		try {
 			// 기반 스트림
 			FileReader fr = new FileReader("./src/main/java/io/BufferedReaderTest.java");
-			
+
 			// 보조 스트림
 			br = new BufferedReader(fr);
 			
