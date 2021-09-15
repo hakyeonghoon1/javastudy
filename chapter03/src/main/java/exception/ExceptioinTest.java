@@ -4,7 +4,7 @@ public class ExceptioinTest {
 
 	public static void main(String[] args) {
 		int a = 10;
-		int b = 10 /*- a*/;
+		int b = 10 - a;
 		
 		System.out.println("some code1");
 		try {
