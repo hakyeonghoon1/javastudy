@@ -57,6 +57,9 @@ public class ChatServerThread extends Thread {
 				if(tokens[0].equals("join")) {
 					doJoin(tokens[1],pw);
 				} else if(tokens[0].equals("message")) {
+					if(tokens[1]==null) {
+						tokens[1]=" ";
+					}
 					doMessage(tokens[1]);
 				} else if(tokens[0].equals("quit")) {
 					doQuit(pw);
@@ -113,10 +116,10 @@ public class ChatServerThread extends Thread {
 			}
 		}
 	}
+	
 	private void addWriter(Writer writer) {
 		synchronized(listWriters) {
 			listWriters.add(writer);
 		}
-	}
-	
+	}	
 }

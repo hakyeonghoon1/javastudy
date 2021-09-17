@@ -1,8 +1,6 @@
 package chat;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -24,8 +22,19 @@ public class ChatClient {
 			scanner = new Scanner(System.in);
 					
 			System.out.print("닉네임>>");
-			String nickname= scanner.nextLine();
-			System.out.println(nickname);
+			
+			String nickname= null;
+			while(true) {
+				nickname= scanner.nextLine();
+				if(nickname.equals("")) {
+					System.out.println("닉네임을 입력해주세요");
+					continue;
+				}else {
+					break;
+				}
+			}
+			
+			//System.out.println(nickname);
 			//2.socket 생성
 			socket = new Socket();
 			
@@ -50,18 +59,19 @@ public class ChatClient {
 				 
 				System.out.print(">>");
 				String input = scanner.nextLine();
-
+				if(input.equals("")) {
+					continue;
+				}
 				if("quit".equals(input)) {
 					//8.quit 프로토콜 처리
 					pw.println("quit");
+					pw.flush();
 					break;
 				} else {
 					//9. 메세지 처리
 					//ChatClientThread
-					if(input == null) {
-						input=" ";
-					}
 					pw.println("message:"+input);
+					pw.flush();
 					
 				}
 			}

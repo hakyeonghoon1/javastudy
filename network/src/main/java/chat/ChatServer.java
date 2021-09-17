@@ -1,7 +1,6 @@
 package chat;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -22,8 +21,8 @@ public class ChatServer {
 			
 			serverSocket = new ServerSocket();
 			
-			serverSocket.bind(new InetSocketAddress("0.0.0.0",PORT));
-			log("연결 기다림 0.0.0.0 : "+ PORT);
+			serverSocket.bind(new InetSocketAddress("127.0.0.1",PORT));
+			log("연결 기다림 127.0.0.1 : "+ PORT);
 			
 			while(true) {
 				Socket socket = serverSocket.accept();
