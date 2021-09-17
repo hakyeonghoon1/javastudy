@@ -20,14 +20,15 @@ public class ChatClientThread extends Thread{
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream(),"utf-8"));
 			 while (true) {
 				 String data = br.readLine();
+				 System.out.println("");
 				 System.out.println("<"+data);
+				 //System.out.println(">>");
+				 
 		     }
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("error : "+ e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("IOException : "+ e);
 		}
        
 	}

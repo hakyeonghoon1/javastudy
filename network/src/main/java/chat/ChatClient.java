@@ -25,7 +25,7 @@ public class ChatClient {
 					
 			System.out.print("닉네임>>");
 			String nickname= scanner.nextLine();
-			 System.out.println(nickname);
+			System.out.println(nickname);
 			//2.socket 생성
 			socket = new Socket();
 			
@@ -34,31 +34,34 @@ public class ChatClient {
 			System.out.println("채팅방에 입장하였습니다.");
 			
 			//4. reader/writer 생성
-			
-			//BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(),"utf-8"));
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),"utf-8"),true);
 			
-			pw.println("join:"+nickname+"\r\n");
+			pw.println("join:"+nickname);
 			pw.flush();
-			//System.out.println("1111111111111111");
-			//String data = br.readLine();
-			
+			//System.out.println("1111111111111111되냐?");
+
 			//6. ChatClientThread 시작
 			new ChatClientThread(socket).start();
-			//System.out.println("@222222222222222");
+			//System.out.println("@222222222222222되냐?");
 			//7. 키보드 입력 처리
 			while(true) {
+			
+				Thread.sleep(50);
+				 
 				System.out.print(">>");
 				String input = scanner.nextLine();
-				
+
 				if("quit".equals(input)) {
 					//8.quit 프로토콜 처리
-					pw.println("quit\r\n");
+					pw.println("quit");
 					break;
 				} else {
 					//9. 메세지 처리
 					//ChatClientThread
-					pw.println("message:"+input+"\r\n");
+					if(input == null) {
+						input=" ";
+					}
+					pw.println("message:"+input);
 					
 				}
 			}
@@ -67,7 +70,9 @@ public class ChatClient {
 			System.out.println("socket error : "+e);
 		} catch (IOException e) {
 			System.out.println("error : "+e);
-		} finally {
+		} catch (InterruptedException e) {
+			System.out.println("error : "+e);
+		}finally {
 			try {
 				if(socket != null && socket.isClosed() == false) {
 					socket.close();

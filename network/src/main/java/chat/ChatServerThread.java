@@ -39,20 +39,21 @@ public class ChatServerThread extends Thread {
 		try {
 			//2.스트림 얻기
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream(),"utf-8"));
-			PrintWriter pw =  new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),"utf-8"));
+			PrintWriter pw =  new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),"utf-8"),true);
 
 			
 			//3. 요청 처리
 			while(true) {
 				String request = br.readLine();
-				System.out.println(request);
+				//System.out.println(request);
 				if(request == null) {
-					ChatServer.log("클라이언트로부터 연결 끊김");
+					ChatServer.log(remoteHostAddress+"클라이언트로부터 연결 끊김");
 					doQuit(pw);
 					break;
 				}
 				String[] tokens = request.split(":");
-				System.out.println(tokens[0].length());
+				System.out.println(this.nickname+ " " +request);
+				
 				if(tokens[0].equals("join")) {
 					doJoin(tokens[1],pw);
 				} else if(tokens[0].equals("message")) {
@@ -62,18 +63,18 @@ public class ChatServerThread extends Thread {
 				} else {
 					ChatServer.log("에러: 알수 없는 요청("+tokens[0]+")");
 				}
+				
 			}
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("error:"+e);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("IOError:"+e);
 		}
 		
 		
 	}
 	private void doJoin(String nickName,Writer writer) {
+		//System.out.println("dojoin");
 		this.nickname=nickName;
 		
 		String data = nickName+"님이 참여하였습니다.";
@@ -87,6 +88,9 @@ public class ChatServerThread extends Thread {
 	}
 	
 	private void doMessage(String tokens) {
+		if(tokens ==null) {
+			tokens=" ";
+		}
 		broadcast(this.nickname+":"+tokens);
 	}
 	
@@ -95,14 +99,16 @@ public class ChatServerThread extends Thread {
 		String data = this.nickname+"님이 퇴장 하였습니다.";
 		broadcast(data);
 	}
+	
 	private void removeWriter(Writer writer) {
 		listWriters.remove(writer);
 	}
+	
 	private void broadcast(String data) {
 		synchronized (listWriters) {
 			for (Writer writer : listWriters) {
 				PrintWriter pw = (PrintWriter)writer;
-	            pw.println(data+"\r\n");
+	            pw.println(data);
 	            pw.flush();
 			}
 		}
