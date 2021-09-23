@@ -13,7 +13,7 @@ public class ChatClient {
 	private static final String SERVER_IP ="127.0.0.1";
 	private static final int SERVER_PORT=8080;
 	public static void main(String[] args) {
-
+		
 		Scanner scanner = null;
 		Socket socket = null;
 		
@@ -34,7 +34,6 @@ public class ChatClient {
 				}
 			}
 			
-			//System.out.println(nickname);
 			//2.socket 생성
 			socket = new Socket();
 			
@@ -47,16 +46,13 @@ public class ChatClient {
 			
 			pw.println("join:"+nickname);
 			pw.flush();
-			//System.out.println("1111111111111111되냐?");
-
+			
 			//6. ChatClientThread 시작
 			new ChatClientThread(socket).start();
-			//System.out.println("@222222222222222되냐?");
+
 			//7. 키보드 입력 처리
-			while(true) {
-			
-				Thread.sleep(50);
-				 
+			while(true) {			
+				Thread.sleep(50);				 
 				System.out.print(">>");
 				String input = scanner.nextLine();
 				if(input.equals("")) {
@@ -72,10 +68,8 @@ public class ChatClient {
 					//ChatClientThread
 					pw.println("message:"+input);
 					pw.flush();
-					
 				}
-			}
-			
+			}		
 		} catch (SocketException e) {
 			System.out.println("socket error : "+e);
 		} catch (IOException e) {
@@ -89,8 +83,7 @@ public class ChatClient {
 				}
 				if(scanner !=null) {
 					scanner.close();
-				}
-				
+				}				
 			} catch (IOException e) {
 				System.out.println("error : "+e);
 			}

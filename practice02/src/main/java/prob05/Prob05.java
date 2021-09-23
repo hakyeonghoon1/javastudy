@@ -8,14 +8,15 @@ public class Prob05 {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner( System.in );
 
+		Random random = new Random();
+		int correctNumber = random.nextInt( 100 ) + 1;
+		System.out.println(correctNumber);
 		while( true ) {
 			
 			/* 게임 작성 */
 
 			// 정답 램덤하게 만들기
-			Random random = new Random();
-			int correctNumber = random.nextInt( 100 ) + 1;
-			System.out.println(correctNumber);
+			
 			
 			int getNum = scanner.nextInt();
 			if(getNum==correctNumber) {
