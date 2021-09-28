@@ -3,7 +3,7 @@ package prob5;
 public class Prob5 {
 
 	public static void main(String[] args) {
-		int cnt = 0;
+
 		for(int i=1;i<=99;i++) {
 			
 			String a = Integer.toString(i);
